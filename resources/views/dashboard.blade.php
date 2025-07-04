@@ -84,6 +84,26 @@
             </div>
         </div>
     </div>
+    @if(isset($otherUserTrees) && count($otherUserTrees) > 0)
+    <div class="row mt-4">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">Community Family Trees</div>
+                <div class="card-body">
+                    <div class="row">
+                        @foreach($otherUserTrees as $idx => $otherTree)
+                        <div class="col-md-6 mb-4">
+                            <div class="border rounded p-2">
+                                <div id="community-tree-{{ $idx }}" style="width:100%; min-height:300px;"></div>
+                            </div>
+                        </div>
+                        @endforeach
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    @endif
 </div>
 <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
@@ -117,6 +137,19 @@
             },
             nodeStructure: treeData
         });
+        // Render community user trees (only name and city)
+        @if(isset($otherUserTrees) && count($otherUserTrees) > 0)
+            @foreach($otherUserTrees as $idx => $otherTree)
+                new Treant({
+                    chart: {
+                        container: "#community-tree-{{ $idx }}",
+                        node: { collapsable: true },
+                        animation: { nodeAnimation: "easeOutBounce", nodeSpeed: 700, connectorsAnimation: "bounce", connectorsSpeed: 700 },
+                    },
+                    nodeStructure: @json($otherTree)
+                });
+            @endforeach
+        @endif
     });
 </script>
 <!-- Treant.js CSS/JS (CDN for demo) -->

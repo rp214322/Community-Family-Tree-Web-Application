@@ -36,9 +36,14 @@
                         </div>
                         <div class="mb-3">
                             <label for="parent_id" class="form-label">Parent (optional)</label>
-                            <input type="number" class="form-control" id="parent_id" name="parent_id" value="{{ old('parent_id', $familyMember->parent_id) }}">
+                            <select class="form-select" id="parent_id" name="parent_id">
+                                <option value="">-- None --</option>
+                                @foreach($familyMembers as $member)
+                                    <option value="{{ $member->id }}" {{ old('parent_id', $familyMember->parent_id) == $member->id ? 'selected' : '' }}>{{ $member->name }}</option>
+                                @endforeach
+                            </select>
                         </div>
-                        <button type="submit" class="btn btn-primary">Update Family Member</button>
+                            <button type="submit" class="btn btn-primary">Update Family Member</button>
                         <a href="{{ route('dashboard') }}" class="btn btn-secondary ms-2">Back to Dashboard</a>
                     </form>
                 </div>

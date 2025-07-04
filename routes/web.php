@@ -24,4 +24,6 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+Route::get('/community-tree', [DashboardController::class, 'communityTree'])->name('community.tree');
+
 require __DIR__.'/auth.php';

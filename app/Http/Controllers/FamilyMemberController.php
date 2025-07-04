@@ -10,7 +10,8 @@ class FamilyMemberController extends Controller
 {
     public function create()
     {
-        return view('family_members.create');
+        $familyMembers = Auth::user()->familyMembers()->get();
+        return view('family_members.create', compact('familyMembers'));
     }
 
     public function store(Request $request)
@@ -36,7 +37,8 @@ class FamilyMemberController extends Controller
     public function edit(FamilyMember $familyMember)
     {
         $this->authorizeAction($familyMember);
-        return view('family_members.edit', compact('familyMember'));
+        $familyMembers = Auth::user()->familyMembers()->where('id', '!=', $familyMember->id)->get();
+        return view('family_members.edit', compact('familyMember', 'familyMembers'));
     }
 
     public function update(Request $request, FamilyMember $familyMember)

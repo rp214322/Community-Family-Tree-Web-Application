@@ -1,84 +1,57 @@
 # Community Family Tree Application
 
-A Laravel 11 + Bootstrap 5 web app for building and visualizing family trees in a community.
+## Overview
+This is a Laravel 11 + Bootstrap 5 web application for managing and visualizing family trees in a community. Each user can register, add family members, and view their family hierarchy. The app also supports a community-wide tree view with privacy controls.
 
 ## Features
-- User registration (Full Name, Email, Phone, City, Password)
-- Dashboard with profile, add family members, and Yajra DataTable
-- Add/Edit/Delete family members (no login for family members)
-- Family tree visualization (Treant.js)
-- Privacy: Only direct family info is fully visible
+- **User Registration:** Register with name, email, phone, city, and password.
+- **Dashboard:**
+  - View your profile info in a grid.
+  - Add family members (child, spouse, sibling, etc.) using a DataTable.
+  - See your family tree as a hierarchy (full info for you and your direct family).
+  - **Community Family Trees:** See all other users' family trees below your own, with only name and city visible for privacy.
+- **Family Tree Visualization:**
+  - Uses Treant.js for interactive tree diagrams.
+  - Hierarchical view starts from the logged-in user (on dashboard) or from all users (on community tree page).
+- **Privacy Controls:**
+  - You and your direct family: full info (name, city, phone, email).
+  - Extended family: masked contact info.
+  - Other users and their families: only name and city are shown.
+- **Permissions:**
+  - You can only edit/delete your own family members.
+  - You cannot view private info of other users' family members.
 
----
+## Community Tree View
+- Visit `/community-tree` to see the full community tree (all users and their families), with privacy masking.
+- Each user's tree is also shown on your dashboard, below your own tree, with only name and city for privacy.
 
-## Project Setup
+## Setup Instructions
+1. **Clone the repository**
+2. **Install dependencies:**
+   ```bash
+   composer install
+   npm install && npm run build
+   ```
+3. **Configure your `.env` file** for database and mail settings.
+4. **Run migrations and seeders:**
+   ```bash
+   php artisan migrate:fresh --seed
+   ```
+5. **Start the server:**
+   ```bash
+   php artisan serve
+   ```
+6. **Login/Register** and explore the dashboard and community tree features.
 
-### 1. Clone the Repository
-```bash
-git clone <your-repo-url>
-cd family-tree-app
-```
-
-### 2. Install PHP Dependencies
-```bash
-composer install
-```
-
-### 3. Install NPM Dependencies
-```bash
-npm install
-```
-
-### 4. Copy and Configure Environment File
-```bash
-cp .env.example .env
-```
-- Set your database credentials in `.env`:
-  - `DB_DATABASE=your_db_name`
-  - `DB_USERNAME=your_db_user`
-  - `DB_PASSWORD=your_db_password`
-
-### 5. Generate Application Key
-```bash
-php artisan key:generate
-```
-
-### 6. Run Migrations and Seed Sample Data
-```bash
-php artisan migrate --seed
-```
-
-### 7. Build Frontend Assets
-```bash
-npm run build
-```
-
-### 8. Start the Development Server
-```bash
-php artisan serve
-```
-
-Visit [http://localhost:8000](http://localhost:8000) in your browser.
-
----
-
-## Sample Login
-- **Email:** alice@example.com
-- **Password:** password
-
----
+## Tech Stack
+- Laravel 11
+- Bootstrap 5
+- Treant.js (for tree visualization)
+- MySQL (or compatible database)
 
 ## Notes
-- Family tree visualization uses Treant.js (via CDN)
-- DataTables uses Yajra DataTables (server-side) and Bootstrap 5
-- You can register new users and build your own family tree
+- The dashboard and community tree both enforce privacy as described above.
+- You can only manage (add/edit/delete) your own family members.
 
 ---
-
-## Troubleshooting
-- If you do not see the family tree, check browser console for JS errors and ensure all CDN scripts are loaded.
-- For any issues, run:
-  ```bash
-  php artisan migrate:fresh --seed
-  npm run build
-  ```
+For any questions or issues, please open an issue or contact the maintainer.
